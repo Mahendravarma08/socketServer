@@ -5,9 +5,9 @@ module.exports = (httpServer) => {
   const io = socketIo(httpServer,{
     cors:true,origins:'*'
   });
-
   io.on('connection', (socket) => {
-    console.log('New client connected');
+    console.info(`New client connected with client ID ${socket.id}`);
+    // console.log('New client connected');
 
     socket.on('disconnect', () => {
       console.log('Client disconnected');

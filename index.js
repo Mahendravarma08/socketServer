@@ -7,7 +7,7 @@ const routes = require('./routes')
 const cors = require('cors')
 const app = express();
 const server = http.createServer(app);
-const io = socketService(server); // This might return the io instance if needed
+socketService(server); // This might return the io instance if needed
 const mongoose = require('mongoose')
 
 require('dotenv').config()
