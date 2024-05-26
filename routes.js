@@ -3,7 +3,9 @@ const router = express.Router()
 
 const loginController = require('./src/endpoints/login')
 
-router.use(loginController)
+const messageController = require('./src/endpoints/messages')
+
+router.use([loginController,messageController])
 
 
 module.exports = router
