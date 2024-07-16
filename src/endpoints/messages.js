@@ -12,7 +12,7 @@ router.get('/messages/:currentUser/:selectedUser', async(req, res) => {
           { $or: [{ sender: currentUser }, { recipient: currentUser }] },
           { $or: [{ sender: selectedUser }, { recipient: selectedUser }] },
         ]
-      }).sort({ createdAt: -1 });
+      }).sort({ createdAt: 1 });
       
 
     console.log(message,"messagesss")
