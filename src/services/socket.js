@@ -63,6 +63,23 @@ module.exports = (httpServer) => {
       }
       io.emit('ack', message);
     });
+
+
+    socket.on('sendGroupMessage', async (message, roomId) => {
+      console.log(message,roomId,"messageandroomId");
+      // Send message to all users in the room
+      const groupMessage = new Message(message)
+      io.to(roomId).emit('messageReceived', { message, sender: socket.id });
+      await groupMessage.save()
+    });
+
+
+    socket.on('joinGroup', (roomId) => {
+      socket.join(roomId);
+      console.log(`User joined room ${roomId}`);
+      // You might want to add logic here to store user information in the room,
+      // for example, using a data structure to keep track of users in each room.
+    });
   });
 
   return io; // Optional: return the io instance for further use
