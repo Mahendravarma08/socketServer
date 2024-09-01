@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const User = require('../schemas/signup')
 const Connection = require('../schemas/connections');
 const Message = require('../schemas/messages')
+const Group = require('../schemas/group');
+const group = require('../schemas/group');
 
 module.exports = (httpServer) => {
   const io = socketIo(httpServer,{
@@ -74,9 +76,19 @@ module.exports = (httpServer) => {
     });
 
 
-    socket.on('joinGroup', (roomId) => {
-      socket.join(roomId);
-      console.log(`User joined room ${roomId}`);
+    socket.on('joinGroup', async (currentUser) => {
+      console.log(currentUser,"efgwsrgrwgw");
+      const groupIds = await Group.find({
+        members:currentUser
+      })
+
+      console.log(groupIds,"efgwefgwewe")
+
+      for (const ele of groupIds) {
+        
+        socket.join(String(ele._id));
+        console.log(`User joined room ${String(ele._id)}`);
+      }
       // You might want to add logic here to store user information in the room,
       // for example, using a data structure to keep track of users in each room.
     });
