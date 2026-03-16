@@ -28,7 +28,7 @@ module.exports = (httpServer) => {
     //   {$set:{status:1}},
     // )
 
-    const result = await Connection.updateOne(    
+    await Connection.updateOne(    
       { userName: username }, // Filter by username
       { $set: { socketId: socket.id } }, // Update the socketId
       {upsert:true}
@@ -85,14 +85,11 @@ module.exports = (httpServer) => {
       console.log(groupIds,"efgwefgwewe")
 
       for (const ele of groupIds) {
-        
         socket.join(String(ele._id));
         console.log(`User joined room ${String(ele._id)}`);
       }
-      // You might want to add logic here to store user information in the room,
-      // for example, using a data structure to keep track of users in each room.
     });
   });
 
-  return io; // Optional: return the io instance for further use
+  return io;
 };
